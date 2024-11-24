@@ -7,6 +7,7 @@
 #include<vector>
 #include<cstdlib>
 #include"Enemy.h"
+#include"Bullet.h"
 using namespace std;
 using namespace sf;
 
@@ -18,17 +19,27 @@ private:
     VideoMode videomode;
     Event event;
     Vector2f MousePos;
-    RectangleShape LifeStats,ScoreStats,Start,Exit,backGround;
+    RectangleShape LifeStats, ScoreStats, Start, Exit, Resume, LevelRect;
+    Sprite backGround;
+    Texture backtexture,UserTexture,EnemyTexure,BulletTexture;
+    Font font;
+    Music bg_music, gameover_music;
+    Sound fire_sound, hit_sound;
+    SoundBuffer fs_buffer, hs_buffer;
 
-    float EnemySpawnTimer,EnemySpawnTimeMax;
-    int points, maxEnemies,health,enemieRow;
-    bool gameStats,isHome;
+
+    float EnemySpawnTimer,EnemySpawnTimeMax,levelTimer,level;
+    int points, maxEnemies,health,enemyShots,enemieRow,Options; //Options 0 - Home , 1 - Game Replay , 2 - Pause
+    bool gameStats,isLevel;
 
     vector<Enemy>Enemies;
-
+    vector<Bullet>Bullets;
+    vector<Texture>Explosion;
+    SpaceF UserSS;
 
     void initVariables();
     void initWindow();
+    void initBackGround();
 
 public:
 
@@ -47,7 +58,13 @@ public:
     void renderEnemy();
     void showHomePage();
     void showGameStats();
+    void showLevel();
+    void initiateSpaceship();
+    void UserActions();
 
+    void Shoot(float velocity);
+    void updateBullet();
+    void BulletRendering();
     void MousePressed();
     Vector2f MousePosition();
 };
