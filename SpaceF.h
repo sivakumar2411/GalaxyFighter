@@ -16,8 +16,8 @@ private:
 	Sprite Spaceship;
 	Vector2f velocity;
 
-	int explosionframe;
-	bool isExploding;
+	int explosionframe,currentSV;
+	bool isExploding,skinned;
 	Clock explodeClock;
 
 	Bullet bullet;
@@ -39,5 +39,9 @@ public:
 	Bullet &getBullet(Texture &texture,float velocity);
 	void setVelocity(float x,float y);
 	Vector2f getVelocity();
+	void setversion(int a);
+	int getversion();
+	void setskin(bool a);
+	bool getskin();
 };
 

@@ -62,3 +62,19 @@ Clock &SpaceF::getExplodeClock() {
 Sprite& SpaceF::getSpaceShip() {
 	return this->Spaceship;
 }
+
+void SpaceF::setversion(int a) {
+	this->currentSV = a;
+}
+
+int SpaceF::getversion() {
+	return this->currentSV;
+}
+
+void SpaceF::setskin(bool a) {
+	this->skinned = a;
+}
+
+bool SpaceF::getskin() {
+	return this->skinned;
+}

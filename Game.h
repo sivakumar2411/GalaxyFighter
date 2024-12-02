@@ -19,17 +19,22 @@ private:
     VideoMode videomode;
     Event event;
     Vector2f MousePos;
-    RectangleShape LifeStats, ScoreStats, Start, Exit, Resume, LevelRect;
+    RectangleShape LifeStats, ScoreStats, Start, ChangeSkin, Exit, Resume, LevelRect,SpaceShipSkin,BulletSkin,RightLabel,LeftLabel,Select;
     Sprite backGround;
-    Texture backtexture,UserTexture,EnemyTexure,BulletTexture;
+    Texture backtexture,EnemyTexture,BulletTexture;
     Font font;
     Music bg_music, gameover_music;
     Sound fire_sound, hit_sound;
     SoundBuffer fs_buffer, hs_buffer;
+    Clock EnemyShotCooldown,UserShotCD;
+
+    vector<vector<Texture>> UserTexture;
+    vector<vector<bool>>SSUnlocked,BSUnlocked;
+    int VersionTracker, SkinTracker,SelectedVersion,SelectedSkin;
 
 
     float EnemySpawnTimer,EnemySpawnTimeMax,levelTimer,level;
-    int points, maxEnemies,health,enemyShots,enemieRow,Options; //Options 0 - Home , 1 - Game Replay , 2 - Pause
+    int points, maxEnemies,health,enemieRow,Options,cash; //Options 0 - Home , 1 - Game Replay , 2 - Pause , 5 - ChangeSkin
     bool gameStats,isLevel;
 
     vector<Enemy>Enemies;
@@ -51,7 +56,6 @@ public:
     void pollEvents();
     void update();
     void render();
-    void renderSpaceShip(RectangleShape SS);
     void reStart();
     void spawnEnemy();
     void updateEnemy();
@@ -62,7 +66,8 @@ public:
     void initiateSpaceship();
     void UserActions();
 
-    void Shoot(float velocity);
+    void Shoot(float velocity,SpaceF E);
+    void Closet();
     void updateBullet();
     void BulletRendering();
     void MousePressed();
