@@ -1,8 +1,8 @@
 ﻿  Game.cpp
-S:\Programs\C++\Games\Game1\Game.cpp(84,113): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
-S:\Programs\C++\Games\Game1\Game.cpp(84,113): warning C4244:         with
-S:\Programs\C++\Games\Game1\Game.cpp(84,113): warning C4244:         [
-S:\Programs\C++\Games\Game1\Game.cpp(84,113): warning C4244:             T=unsigned int
-S:\Programs\C++\Games\Game1\Game.cpp(84,113): warning C4244:         ]
-S:\Programs\C++\Games\Game1\Game.cpp(558,53): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+S:\Programs\C++\Games\Game1\Game.cpp(85,113): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+S:\Programs\C++\Games\Game1\Game.cpp(85,113): warning C4244:         with
+S:\Programs\C++\Games\Game1\Game.cpp(85,113): warning C4244:         [
+S:\Programs\C++\Games\Game1\Game.cpp(85,113): warning C4244:             T=unsigned int
+S:\Programs\C++\Games\Game1\Game.cpp(85,113): warning C4244:         ]
+S:\Programs\C++\Games\Game1\Game.cpp(570,53): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
   Game1.vcxproj -> S:\Programs\C++\Games\Game1\x64\Debug\Game1.exe

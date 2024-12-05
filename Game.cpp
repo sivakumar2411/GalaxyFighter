@@ -62,16 +62,17 @@ void Game::initBackGround() {
     float scaleX = static_cast<float>(this->window->getSize().x) / this->backtexture.getSize().x;
     float scaleY = static_cast<float>(this->window->getSize().y) / this->backtexture.getSize().y;
     this->backGround.setScale(scaleX,scaleY);
+    this->bg_music.setLoop(true);
     this->bg_music.play();
 }
 
 void Game::initWindow()
 {
-    this->videomode.height = 600;
-    this->videomode.width = 800;
+    this->videomode.height = 1080;
+    this->videomode.width = 1920;
 
-    this->window = new RenderWindow(this->videomode, "Game1", Style::Close);
-    this->window->setFramerateLimit(120);
+    this->window = new RenderWindow(this->videomode, "Game1", Style::Fullscreen);
+    this->window->setFramerateLimit(60);
 }
 
 void Game::initiateSpaceship() {
@@ -79,9 +80,9 @@ void Game::initiateSpaceship() {
     if (this->UserTexture.size() != 0) {
         this->UserSS.getSpaceShip().setTexture(this->UserTexture[this->SelectedVersion][this->SelectedSkin]);
         Vector2u Scale = this->UserTexture[this->SelectedVersion][this->SelectedSkin].getSize();
-        this->UserSS.getSpaceShip().setScale(50.f / static_cast<float>(Scale.x), 50.f / static_cast<float>(Scale.y));
+        this->UserSS.getSpaceShip().setScale(100.f / static_cast<float>(Scale.x), 100.f / static_cast<float>(Scale.y));
         this->UserSS.getSpaceShip().setOrigin(0.f, 0.f);
-        this->UserSS.getSpaceShip().setPosition(this->window->getSize().x / 2.f - 25, this->window->getSize().y - 50);
+        this->UserSS.getSpaceShip().setPosition(this->window->getSize().x / 2.f - 50, this->window->getSize().y - 100);
     }
     this->UserSS.setExplosionFrame(0);
     this->UserSS.setIsExploding(0);
@@ -92,19 +93,29 @@ void Game::UserActions() {
 
     Vector2f pos = this->UserSS.getSpaceShip().getPosition();
     float rightBoundary = this->window->getSize().x - this->UserSS.getSpaceShip().getGlobalBounds().width;
+    float bottomBoudary = this->window->getSize().y - this->UserSS.getSpaceShip().getGlobalBounds().height;
 
     if (Keyboard::isKeyPressed(Keyboard::Right) && pos.x < rightBoundary) {
         if(!this->UserSS.getIsExploding())
-        this->UserSS.getSpaceShip().move(8.f, 0.f);
+        this->UserSS.getSpaceShip().move(10.f, 0.f);
         //this->UserSS.getSpaceShip().setPosition(pos+this->UserSS.getVelocity());
     }
     else if (Keyboard::isKeyPressed(Keyboard::Left) && pos.x > 0) {
         if(!this->UserSS.getIsExploding())
-        this->UserSS.getSpaceShip().move(-8.f, 0.f);
+        this->UserSS.getSpaceShip().move(-10.f, 0.f);
+    }
+    if (Keyboard::isKeyPressed(Keyboard::Up) && pos.y > 0) {
+        if(!this->UserSS.getIsExploding())
+        this->UserSS.getSpaceShip().move(0.f,-10.f);
+        //this->UserSS.getSpaceShip().setPosition(pos+this->UserSS.getVelocity());
+    }
+    else if (Keyboard::isKeyPressed(Keyboard::Down) && pos.y < bottomBoudary) {
+        if(!this->UserSS.getIsExploding())
+        this->UserSS.getSpaceShip().move(0.f,10.f);
     }
     if (Keyboard::isKeyPressed(Keyboard::LControl)) {
         if (!this->UserSS.getIsExploding() && this->UserShotCD.getElapsedTime().asMilliseconds() >= 150) {
-            this->Shoot(-5.f, this->UserSS);
+            this->Shoot(-15.f, this->UserSS);
             this->UserShotCD.restart();
         }
     }
@@ -112,11 +123,12 @@ void Game::UserActions() {
 
 void Game::showHomePage() {
     Text texts, texte, textcs, score, resume;
+    Vector2f ScreenSize = Vector2f(static_cast<float>(this->window->getSize().x), static_cast<float>(this->window->getSize().y));
 
     if (this->Options == 2 || this->Options == 1) {
         RectangleShape FinalScore;
         FinalScore.setFillColor(Color::Transparent);
-        FinalScore.setSize(Vector2f(150.f, 30.f));
+        FinalScore.setSize(Vector2f(max(150.f, ScreenSize.x / 15.f), max(30.f, ScreenSize.y / 15.f)));
         FinalScore.setPosition(320.f, this->Options == 1 ? 200.f : 150.f);
 
 
@@ -131,7 +143,7 @@ void Game::showHomePage() {
         this->window->draw(score);
         if (this->Options == 2) {
             this->Resume.setFillColor(Color::Green);
-            this->Resume.setSize(Vector2f(150.f, 30.f));
+            this->Resume.setSize(Vector2f(max(150.f, ScreenSize.x / 15.f), max(30.f, ScreenSize.y / 15.f)));
             this->Resume.setPosition(325.f, 200.f);
 
             resume.setString("Resume");
@@ -146,15 +158,15 @@ void Game::showHomePage() {
     }
     if (this->Options == 0 || this->Options == 1 || this->Options == 2) {
         
-        this->Start.setSize(Vector2f(150.f, 30.f));
+        this->Start.setSize(Vector2f(max(150.f, ScreenSize.x / 10.f), max(30.f, ScreenSize.y / 15.f)));
         this->Start.setPosition(325.f, this->Options == 0?200.f:250.f);
         this->Start.setFillColor(Color::Green);
 
-        this->ChangeSkin.setSize(Vector2f(150.f, 30.f));
+        this->ChangeSkin.setSize(Vector2f(max(150.f, ScreenSize.x / 10.f), max(30.f, ScreenSize.y / 15.f)));
         this->ChangeSkin.setPosition(325.f, 250.f);
         this->ChangeSkin.setFillColor(Color::Blue);
 
-        this->Exit.setSize(Vector2f(150.f, 30.f));
+        this->Exit.setSize(Vector2f(max(150.f, ScreenSize.x / 10.f), max(30.f, ScreenSize.y / 15.f)));
         this->Exit.setPosition(325.f, 300.f);
         this->Exit.setFillColor(Color::Red);
 
@@ -189,11 +201,11 @@ void Game::showHomePage() {
         }
     }
     if (this->Options > 4) {
-        this->SpaceShipSkin.setSize(Vector2f(200.f, 30.f));
+        this->SpaceShipSkin.setSize(Vector2f(max(200.f, ScreenSize.x / 20.f), max(30.f, ScreenSize.y / 20.f)));
         this->SpaceShipSkin.setPosition(50.f, 100.f);
         this->SpaceShipSkin.setFillColor(Color::Blue);
 
-        this->BulletSkin.setSize(Vector2f(200.f, 30.f));
+        this->BulletSkin.setSize(Vector2f(max(200.f, ScreenSize.x / 20.f), max(30.f, ScreenSize.y / 20.f)));
         this->BulletSkin.setPosition(50.f, 150.f);
         this->BulletSkin.setFillColor(Color::Blue);
 
@@ -343,18 +355,18 @@ const bool Game::running() const {
 
 void Game::spawnEnemy() {
 
+    float ScreenSizeX = static_cast<float>(this->window->getSize().x) / 15.f;
+
     int n = this->enemieRow %2 == 0 ? 6 : 7;
     for (int i = 0;i < n;i++)
     {
         Enemy E;
-        float x = 75.f;
-        if (n == 6)
-            x += 50.0f;
+        float x = ScreenSizeX * (((i + 1) * 2) + (n == 6?0:-1));
         E.getSpaceShip().setTexture(this->EnemyTexture);
         Vector2u Scale = this->EnemyTexture.getSize();
-        E.getSpaceShip().setScale(50.f / static_cast<float>(Scale.x), 50.f / static_cast<float>(Scale.y));
+        E.getSpaceShip().setScale(100.f / static_cast<float>(Scale.x), 100.f / static_cast<float>(Scale.y));
         E.getSpaceShip().setOrigin(0.f, 0.f);
-        E.getSpaceShip().setPosition(x + (i * 100.f),0.f);
+        E.getSpaceShip().setPosition(x ,0.f);
         E.setExplosionFrame(0);
         E.setIsExploding(0);
         this->Enemies.push_back(E);
@@ -372,7 +384,7 @@ void Game::reStart() {
     this->points = 0;
     this->gameStats = true;
     this->levelTimer = 0.f;
-    this->level = 5;
+    this->level = 1;
     this->isLevel = true;
     this->UserShotCD.restart();
     this->EnemyShotCooldown.restart();
@@ -430,7 +442,7 @@ void Game::MousePressed() {
 
 void Game::Shoot(float velocity,SpaceF E) {
     Bullet bullet = E.getBullet(this->BulletTexture,velocity);
-    bullet.getBullet().setPosition(E.getSpaceShip().getPosition().x + E.getSpaceShip().getGlobalBounds().width / 2.f, E.getSpaceShip().getGlobalBounds().top+E.getSpaceShip().getGlobalBounds().height/2.f);
+    bullet.getBullet().setPosition(E.getSpaceShip().getPosition().x + E.getSpaceShip().getGlobalBounds().width / 2.f, E.getSpaceShip().getGlobalBounds().top);
     this->Bullets.push_back(bullet);
     this->fire_sound.play();
 }
@@ -497,8 +509,8 @@ void Game::updateEnemy() {
 
     if (this->Enemies.size() != 0 && this->EnemyShotCooldown.getElapsedTime().asMilliseconds() >= max(500.f, 4000.f - (level / 3.f * 50.f))) {
         int randnum = rand();
-        if (this->Enemies[randnum % this->Enemies.size()].getShootCoolDown() <= 0.f) {
-            this->Shoot(5.f, this->Enemies[randnum % this->Enemies.size()]);
+        if (this->Enemies[randnum % this->Enemies.size()].getShootCoolDown() <= 0.f && !this->Enemies[randnum % this->Enemies.size()].getIsExploding()) {
+            this->Shoot(15.f, this->Enemies[randnum % this->Enemies.size()]);
             this->Enemies[randnum % this->Enemies.size()].setShootCoolDown(100.f);
             this->EnemyShotCooldown.restart();
         }
@@ -523,7 +535,7 @@ void Game::updateEnemy() {
             --i;
         }
         else {
-            this->Enemies[i].getSpaceShip().move(0, min(this->level / 4 * .6f,6.f));
+            this->Enemies[i].getSpaceShip().move(0, min(this->level / 3 * .9f,10.f));
             if (this->Enemies[i].getShootCoolDown() > 0.f)
             this->Enemies[i].setShootCoolDown(this->Enemies[i].getShootCoolDown() - 20.f);
             if (!this->Enemies[i].getIsExploding() && this->UserSS.getSpaceShip().getGlobalBounds().intersects(this->Enemies[i].getSpaceShip().getGlobalBounds())) {
@@ -568,6 +580,8 @@ void Game::updateEnemy() {
 
 void Game::showGameStats() {
 
+    Vector2f ScreenSize = Vector2f(static_cast<float>(this->window->getSize().x), static_cast<float>(this->window->getSize().y));
+
     Text lst, sst;
     this->LifeStats.setFillColor(Color::Transparent);
     this->LifeStats.setSize(Vector2f(100.f,30.f));
@@ -583,7 +597,7 @@ void Game::showGameStats() {
 
     this->ScoreStats.setFillColor(Color::Transparent);
     this->ScoreStats.setSize(Vector2f(100.f,30.f));
-    this->ScoreStats.setPosition(700.f, 0.f);
+    this->ScoreStats.setPosition(ScreenSize.x - 100.f, 0.f);
 
     sst.setFillColor(Color::White);
     sst.setCharacterSize(20);
