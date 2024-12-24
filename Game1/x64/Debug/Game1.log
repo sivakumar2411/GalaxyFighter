@@ -1,8 +1,16 @@
-﻿  Game.cpp
+﻿  Bullet.cpp
+  Enemy.cpp
+  Game.cpp
 S:\Programs\C++\Games\Game1\Game.cpp(85,113): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
 S:\Programs\C++\Games\Game1\Game.cpp(85,113): warning C4244:         with
 S:\Programs\C++\Games\Game1\Game.cpp(85,113): warning C4244:         [
 S:\Programs\C++\Games\Game1\Game.cpp(85,113): warning C4244:             T=unsigned int
 S:\Programs\C++\Games\Game1\Game.cpp(85,113): warning C4244:         ]
 S:\Programs\C++\Games\Game1\Game.cpp(570,53): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+  Game1.cpp
+S:\Programs\C++\Games\Game1\Game1.cpp(5,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+S:\Programs\C++\Games\Game1\Game1.cpp(6,9): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+S:\Programs\C++\Games\Game1\Game1.cpp(7,9): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  SpaceF.cpp
+  Generating Code...
   Game1.vcxproj -> S:\Programs\C++\Games\Game1\x64\Debug\Game1.exe
