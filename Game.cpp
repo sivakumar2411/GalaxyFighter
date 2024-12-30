@@ -129,7 +129,7 @@ void Game::showHomePage() {
         RectangleShape FinalScore;
         FinalScore.setFillColor(Color::Transparent);
         FinalScore.setSize(Vector2f(max(150.f, ScreenSize.x / 15.f), max(30.f, ScreenSize.y / 15.f)));
-        FinalScore.setPosition(320.f, this->Options == 1 ? 200.f : 150.f);
+        FinalScore.setPosition((ScreenSize.x/2.f)-(FinalScore.getSize().x/2.f), this->Options == 1 ? 200.f : 150.f);
 
 
         score.setString("Your Score: " + to_string(this->points));
@@ -144,7 +144,7 @@ void Game::showHomePage() {
         if (this->Options == 2) {
             this->Resume.setFillColor(Color::Green);
             this->Resume.setSize(Vector2f(max(150.f, ScreenSize.x / 15.f), max(30.f, ScreenSize.y / 15.f)));
-            this->Resume.setPosition(325.f, 200.f);
+            this->Resume.setPosition((ScreenSize.x / 2.f)-(this->Resume.getSize().x/2.f), 200.f);
 
             resume.setString("Resume");
             resume.setFillColor(Color::White);
@@ -159,15 +159,15 @@ void Game::showHomePage() {
     if (this->Options == 0 || this->Options == 1 || this->Options == 2) {
         
         this->Start.setSize(Vector2f(max(150.f, ScreenSize.x / 10.f), max(30.f, ScreenSize.y / 15.f)));
-        this->Start.setPosition(325.f, this->Options == 0?200.f:250.f);
+        this->Start.setPosition((ScreenSize.x / 2.f)-(this->Start.getSize().x/2.f), this->Options == 0 ? 200.f : 250.f);
         this->Start.setFillColor(Color::Green);
 
         this->ChangeSkin.setSize(Vector2f(max(150.f, ScreenSize.x / 10.f), max(30.f, ScreenSize.y / 15.f)));
-        this->ChangeSkin.setPosition(325.f, 250.f);
+        this->ChangeSkin.setPosition((ScreenSize.x / 2.f)-(this->ChangeSkin.getSize().x/2.f), 250.f);
         this->ChangeSkin.setFillColor(Color::Blue);
 
         this->Exit.setSize(Vector2f(max(150.f, ScreenSize.x / 10.f), max(30.f, ScreenSize.y / 15.f)));
-        this->Exit.setPosition(325.f, 300.f);
+        this->Exit.setPosition((ScreenSize.x / 2.f)-(this->Exit.getSize().x/2.f), 300.f);
         this->Exit.setFillColor(Color::Red);
 
         texts.setFillColor(Color::White);
